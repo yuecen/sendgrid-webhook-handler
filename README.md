@@ -1,16 +1,16 @@
 # SendGrid Webhook Handler
 
-For collecting log on SendGrid without using .csv files, we made the webhook handler to receive and index log into Elasticsearch.  
+For collecting log from SendGrid without using .csv files, we made the webhook handler to receive and index log into Elasticsearch.  
 
 ## Quick Start
 
-* ```bash
+```bash
 docker pull yuecen/sendgrid-webhook-handler
 ```
 
-* Set your IP of Elasticsearch to ```<host_ip>```
+Set your IP of Elasticsearch to ```<host_ip>```
 
-* ```bash
+```bash
 docker run -d \
            -e ELASTIC_HOST=<host_ip> \
            --name sg-handler \
