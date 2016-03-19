@@ -1,7 +1,8 @@
 # SendGrid Webhook Handler
 
 For collecting log from SendGrid without using .csv files, I made this handler to receive and index log into 
-Elasticsearch with IP geolocation. 
+Elasticsearch with IP geolocation. So you need to have a Elasticsearch for data indexing before you start following 
+steps. 
 
 ## Quick Start with Docker
 
@@ -35,7 +36,7 @@ host = <host_ip>
 ...
 ```
 
-## An Output Example
+## An Example of Handler Got a Message from SendGrid
 
 The handler got a message from SendGrid and indexed to my Elasticsearch. To check the message detail by a curl request.
 
@@ -44,7 +45,7 @@ curl -XGET "http://127.0.0.1:9200/sendgrid-email-2016-03-18/_search"
 ```
 
 The response from Elasticsearch shows that it has a nested object with location information, such as continent, latitude 
-and longitude
+and longitude.
 
 ```bash
    "hits": {
