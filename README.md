@@ -1,8 +1,7 @@
 # SendGrid Webhook Handler
 
 For collecting log from SendGrid without using .csv files, I made this handler to receive and index log into 
-Elasticsearch with IP geolocation. So you need to have a Elasticsearch for data indexing before you start following 
-steps. 
+Elasticsearch with IP geolocation. So you need to have a Elasticsearch for data indexing before you start following steps. 
 
 ## Quick Start with Docker
 
@@ -22,18 +21,18 @@ docker run -d \
 
 ## Quick Start with Gunucirn
 
-Before you run following script, make sure you have installed all dependent packages listing from ```requirements.txt```.
-
-```bash
-gunicorn --workers 5 --log-level INFO --bind 0.0.0.0:5577 wsgi:app
-```
-
 Set your Elasticsearch IP by editing the ```handler.ini``` config file.
 
 ```bash
 [elastic]
 host = <host_ip>
 ...
+```
+
+Before you run following script, make sure you have installed all dependent packages listing from ```requirements.txt```.
+
+```bash
+gunicorn --workers 5 --log-level INFO --bind 0.0.0.0:5577 wsgi:app
 ```
 
 ## An Example of Handler Got a Message from SendGrid
