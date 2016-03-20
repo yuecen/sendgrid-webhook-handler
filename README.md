@@ -19,7 +19,7 @@ docker run -d \
            yuecen/sendgrid-webhook-handler
 ```
 
-## Quick Start with Gunucirn
+## Quick Start with Gunicorn
 
 Set your Elasticsearch IP by editing the ```handler.ini``` config file.
 
@@ -35,7 +35,7 @@ Before you run following script, make sure you have installed all dependent pack
 gunicorn --workers 5 --log-level INFO --bind 0.0.0.0:5577 wsgi:app
 ```
 
-## An Example of Handler Got a Message from SendGrid
+## An Example of the Handler Receiving a Message from SendGrid
 
 The handler got a message from SendGrid and indexed to my Elasticsearch. To check the message detail by a curl request.
 
