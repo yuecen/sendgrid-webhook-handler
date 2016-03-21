@@ -29,10 +29,12 @@ gi = pygeoip.GeoIP(config.get('geoip', 'db_path'))
 
 @app.route('/s', methods=['POST'])
 def handler():
+    print request.headers
     data = request.data
     data_dict = json.loads(data)
     for sg_event in data_dict:
         sg_event = set_geo_info(sg_event)
+        sg_event = set_indexed_time(sg_event)
         json_body = json.dumps(sg_event)
         insert_elastic(json_body)
     return "OK"
@@ -60,9 +62,11 @@ def set_geo_info(body):
         if body['timestamp']:
             body['event_time'] = int(str(body['timestamp']) + "000")
             del body['timestamp']
+    return body
 
-        body['@timestamp'] = datetime.utcnow().isoformat()
 
+def set_indexed_time(body):
+    body['@timestamp'] = datetime.utcnow().isoformat()
     return body
 
 
