@@ -34,6 +34,7 @@ def handler():
     data_dict = json.loads(data)
     for sg_event in data_dict:
         sg_event = set_geo_info(sg_event)
+        sg_event = set_event_time(sg_event)
         sg_event = set_indexed_time(sg_event)
         json_body = json.dumps(sg_event)
         insert_elastic(json_body)
@@ -57,11 +58,14 @@ def set_geo_info(body):
             req_geo['location']['lon'] = geo_info['longitude']
         if geo_info['latitude']:
             req_geo['location']['lat'] = geo_info['latitude']
-
         body['req_geo'] = req_geo
-        if body['timestamp']:
-            body['event_time'] = int(str(body['timestamp']) + "000")
-            del body['timestamp']
+    return body
+
+
+def set_event_time(body):
+    if body['timestamp']:
+        body['event_time'] = int(str(body['timestamp']) + "000")
+        del body['timestamp']
     return body
 
 
