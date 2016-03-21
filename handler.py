@@ -31,9 +31,10 @@ gi = pygeoip.GeoIP(config.get('geoip', 'db_path'))
 def handler():
     data = request.data
     data_dict = json.loads(data)
-    data_dict = set_geo_info(data_dict)
-    json_body = json.dumps(data_dict)
-    insert_elastic(json_body)
+    for sg_event in data_dict:
+        sg_event = set_geo_info(sg_event)
+        json_body = json.dumps(sg_event)
+        insert_elastic(json_body)
     return "OK"
 
 
