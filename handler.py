@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
+import re
 import logging
 from datetime import datetime
 import ConfigParser
@@ -34,6 +35,7 @@ def handler():
     data_dict = json.loads(data)
     for sg_event in data_dict:
         sg_event = set_geo_info(sg_event)
+        sg_event = set_email_provider(sg_event)
         sg_event = set_event_time(sg_event)
         sg_event = set_indexed_time(sg_event)
         json_body = json.dumps(sg_event)
@@ -62,8 +64,16 @@ def set_geo_info(body):
     return body
 
 
+def set_email_provider(body):
+    if 'email' in body:
+        m = re.match(r".*@(?P<provider>.*)", body['email'])
+        if m.group('provider'):
+            body['provider'] = m.group('provider')
+    return body
+
+
 def set_event_time(body):
-    if body['timestamp']:
+    if 'timestamp' in body:
         body['event_time'] = int(str(body['timestamp']) + "000")
         del body['timestamp']
     return body
