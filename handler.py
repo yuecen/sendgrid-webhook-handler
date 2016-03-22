@@ -75,6 +75,9 @@ def set_email_provider(body):
 def set_event_time(body):
     if 'timestamp' in body:
         body['event_time'] = int(str(body['timestamp']) + "000")
+        # Add time duration
+        body['duration'] = (datetime.now() - datetime.fromtimestamp(body['timestamp'])).total_seconds()
+        # print "Days: " + str(body['duration'] / 3600)
         del body['timestamp']
     return body
 
