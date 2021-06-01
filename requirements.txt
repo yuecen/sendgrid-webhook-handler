@@ -6,5 +6,5 @@ elasticsearch==5.3.0
 gunicorn==19.4.5
 itsdangerous==0.24
 pygeoip==0.3.2
-urllib3==1.20
+urllib3==1.26.5
 wsgiref==0.1.2
